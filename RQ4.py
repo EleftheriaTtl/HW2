@@ -2,7 +2,7 @@ import json
 import pandas as pd
 from operator import itemgetter
 
-events_England = pandas.read_json(r"C:\Users\39335\Downloads\Data\events_England.json")
+events_England = pd.read_json(r"C:\Users\39335\Downloads\Data\events_England.json")
 is_passes = events_England.eventName == "Pass"
 events_England = events_England[is_passes]
 events_England = events_England.reset_index()
