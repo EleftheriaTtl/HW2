@@ -11,8 +11,8 @@ PlayerGoals = dict() # Players ID as value, a list of the goals for each time in
 TotalGoals = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] # A list of the sum of all goals for each time interval
 for i in range(len(events_England["tags"])):
     for j in range(len(events_England["tags"][i])):
-    # For each event if the tag is 101 (a goal) I increase the count of a list depending of the minute it was scored.
-    # There is a different list for each team, each player and the total sum of the goals.
+    # For each event if the tag is 101 (a goal) I increase the count of a list depending of the minute it was scored
+    # There is a different list for each team, each player and the total sum of the goals
         if (101 == events_England["tags"][i][j]["id"]):
             for m in range(6):
                 if (m*540 <= events_England["eventSec"][i] <= (m+1)*540 and events_England["matchPeriod"][i] == "1H"):
@@ -57,8 +57,8 @@ for key in PlayerGoals:
     count = 0
 BestPlayers = pd.DataFrame(BestPlayers)
 BestPlayers.columns = ["playerId"]
+# Merge with players.json to pair ID with players' names
 players = pd.read_json(r"C:\Users\39335\Downloads\Data\players.json")
-# update/change column to improve readability
 players.drop(columns = ["passportArea", "weight", "firstName" , "middleName",
             "lastName", "currentTeamId", "birthDate", "role", "birthArea", "foot",
                          "currentNationalTeamId", "height"], inplace = True )

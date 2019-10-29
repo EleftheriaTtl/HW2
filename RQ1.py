@@ -1,21 +1,24 @@
 import json
-import pandas
+import pandas as pd
 from collections import defaultdict
 import matplotlib.pyplot as plt
 
-eng = pandas.read_json(r"C:\Users\emanu\Downloads\Data\matches\matches_England.json")
-eng = eng.sort_values(by="gameweek")
+eng = pd.read_json(r"C:\Users\emanu\Downloads\Data\matches\matches_England.json")
+eng = eng.sort_values(by="gameweek")    # I sort the dataframe by game week to make it simple to visualize the score throughout the season
 teams = []
 score = []
 ranking = dict()
+# I create two lists with elements "Team1 - Team2" and "Score1 - Score2" ordered by week
 for result in eng["label"]:
     teams.append(result.split(",")[0].strip())
     score.append(result.split(",")[1].strip())
-# Creo due liste (Team1 - Team2, Score1 - Score2) ordinate per settimana
+
+# I initialize a dictionary with keys the names of the teams and as value a list (in the end the list will contain the points that a team has for each week of the season)
 for i in range(len(teams)):
     ranking[teams[i].split("-")[0].strip()] = [0]
     ranking[teams[i].split("-")[1].strip()] = [0]
 
+# For each game I append the points that a team has +3 if it won, +1 draw, or +0 if lost, to the dictionary
 for i in range(len(teams)):
     if int(score[i].split("-")[0].strip()) > int(score[i].split("-")[1].strip()):
         ranking[teams[i].split("-")[0].strip()].append(ranking[teams[i].split("-")[0].strip()][-1] + 3)
@@ -26,9 +29,13 @@ for i in range(len(teams)):
     elif int(score[i].split("-")[0].strip()) == int(score[i].split("-")[1].strip()):
         ranking[teams[i].split("-")[1].strip()].append(ranking[teams[i].split("-")[1].strip()][-1] + 1)
         ranking[teams[i].split("-")[0].strip()].append(ranking[teams[i].split("-")[0].strip()][-1] + 1)
+
+# Delete the first element of the lists (because it's 0 for everybody and we want to count from week 1)
 for keys, values in ranking.items():
     del values[0]
-df = pandas.DataFrame(ranking)
+
+# Plot of teams' score throughout the season
+df = pd.DataFrame(ranking)
 plt.style.use("seaborn-darkgrid")
 num = 0
 week = []
@@ -45,11 +52,14 @@ plt.title("Score of the teams for each week", loc='left', fontsize=12, fontweigh
 plt.ylabel("Score")
 fig.savefig("Score_Graph")
 ###############################################################################################################################
-
+# Winning and losing streaks
+# I'll use 4 lists of 2 elements. The names of the 2 teams with the highest winning strak, the ones with the highest losing streak and their respective value.
 namew = [0, 0]
 scorew = [0, 0]
 namel = [0, 0]
 scorel = [0, 0]
+
+# For each team I set a counter that increases each win/loss and I reset to 0 if the streak is broken. When the streak is broken if the counter is bigger than the stored value (w/l) I update it
 for key in ranking:
     countw = 0
     countl = 0
@@ -91,5 +101,6 @@ for key in ranking:
     elif (l <= scorel[0] and l > scorel[1]):
         scorel[1] = l
         namel[1] = key
-print(namew, scorew)
-print(namel, scorel)
+
+print("The team with the highest winning streak is {} with {} consecutive wins, the second is {} with {} consecutive wins". format(namew[0], scorew[0], namew[1], scorew[1]))
+print("The team with the highest losing streak is {} with {} consecutive losses, the second is {} with {} consecutive losses". format(namel[0], scorel[0], namel[1], scorel[1]))

@@ -8,11 +8,13 @@ events_England = events_England[is_passes]
 events_England = events_England.reset_index()
 events_England.drop(columns = ["index"], inplace = True)
 TopPlyPass = dict()    # This dictionary will have the player ID as key and a list as values. The first item of the list is the count of successful passes, the second is the one of the failed passes.
+
+# I check all the tags for each event and see if it's a succesful pass (1801) or a failed one (1802)
 for i in range(len(events_England["tags"])):
     for j in range(len(events_England["tags"][i])):
-        if (1801 == events_England["tags"][i][j]["id"]):                             # Check to see if at least 1 of the tags of a specific event is a successful pass.
+        if (1801 == events_England["tags"][i][j]["id"]):
             TopPlyPass.setdefault(events_England["playerId"][i], [0, 0])[0] += 1
-        if (1802 == events_England["tags"][i][j]["id"]):                             # Same for a failed pass.
+        if (1802 == events_England["tags"][i][j]["id"]):
             TopPlyPass.setdefault(events_England["playerId"][i], [0, 0])[1] += 1
 
 Top10 = []
@@ -26,7 +28,6 @@ for key in list(TopPlyPass.keys()):
 Top10 = pd.DataFrame(Top10)
 Top10.rename(columns = ({0:"playerId", 1:"Ratio"}), inplace = True)
 players = pd.read_json(r"C:\Users\39335\Downloads\Data\players.json")
-# update/change column to improve readability
 players.drop(columns = ["passportArea", "weight", "firstName" , "middleName",
             "lastName", "currentTeamId", "birthDate", "role", "birthArea", "foot",
                         "currentNationalTeamId", "height"], inplace = True )
