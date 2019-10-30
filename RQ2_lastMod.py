@@ -151,3 +151,5 @@ print(cont('Liverpool'))
 #choosen_team:BURNLEY
 scs.chi2_contingency(cont('Burnley'))
 
+##CHI_SQUARED_RESULTS: The null hypothesis isn't rejected because the p-value is high.  
+
