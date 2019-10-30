@@ -10,8 +10,11 @@ events = pandas.read_json(r"C:\Users\lucy_\Downloads\events\events_England.json"
 
 # In[2]:
 
+##THE GOAL OF THIS ANALYSIS IS TO DISCOVER AND UNDERSTAND WHICH IS THE CORRELATION BETHWEEN NATIONS AND NUMBER OF GOAL OF THIS NATION
+##WHO WILL BE THE STRONGEST TEAM?
 
-a=[] #listofvalues(tags_values)
+#We have dictionaries in tags column, we just want a string that is the event number, we are interested just in 101 event that is the goal
+a=[] 
 for tag in events.tags:
     b=[] #list_to_replace_dictonaries
     for dictonary in tag:
@@ -23,6 +26,7 @@ for tag in events.tags:
 
 # In[4]:
 
+#I remove the number which are different to 101
 
 for lis in a:
     while(len(lis)>1):
@@ -43,7 +47,7 @@ for lis in a:
 
 # In[6]:
 
-
+#this function converts a list into an integer
 def convert(list): 
       
     # Converting integer list to string list 
@@ -57,7 +61,7 @@ def convert(list):
 
 # In[13]:
 
-
+#I put a 0 in all empy list, it's necessary for the conversion
 for tag in a:
     if tag==[]:
         tag.append(0)
@@ -65,7 +69,7 @@ for tag in a:
 
 # In[15]:
 
-
+#now i put a list of integer which are the tags' column
 result=[]
 for tag in a:
     result.append(convert(tag))
@@ -87,6 +91,7 @@ events.tags=result
 
 # In[26]:
 
+#These queries calculate the number of goal for each player
 
 final=events[(events.tags==101)][['teamId','tags','eventSec']]
 
@@ -134,7 +139,7 @@ Nations.birthArea=nations
 
 # In[34]:
 
-
+#This query modify the dataframe: a column with nations and a corresponding column with goals number
 nations_GN=Nations.groupby(['birthArea',]).size().to_frame('goalNumber').reset_index().sort_values(['birthArea', 'goalNumber'], ascending=[True, False])
 
 
@@ -144,5 +149,8 @@ nations_GN=Nations.groupby(['birthArea',]).size().to_frame('goalNumber').reset_i
 import numpy as np
 import matplotlib.pyplot as plt
 
+#This is the bar_plot x_ax=Nations y_ax=goals
 ax = nations_GN.plot.bar()
+
+##ENGLAND IS THE STRONGEST!
 
