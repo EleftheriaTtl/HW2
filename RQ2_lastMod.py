@@ -48,7 +48,7 @@ for i in range(len(teams)):
     matchteam.append([o[0].strip(), o[1].strip()])
 
     matchscore.append([p[0].strip(), p[1].strip()])
-
+#cont is a function that calculate the contingency table for the input team
 def cont(myteam):
 
     winhome = 0
@@ -103,7 +103,7 @@ def cont(myteam):
 
     return Contigency_Table
 
-#Calculate contingency table of 5 teams: Burnley, 
+#Calculate contingency table of 5 teams: Burnley, Arsenal,West Bromwich Albion,Manchester City, Liverpool
 print("Burnley Cont")
 cont('Burnley')
 
