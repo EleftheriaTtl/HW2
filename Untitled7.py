@@ -259,7 +259,18 @@ RQ1(eng)
 # In[27]:
 
 
-def compute_contingency_table(dataset):
+def RQ2(dataset,t1,t2,t3,t4,t5):
+    import pandas 
+
+    import datetime
+
+    from dateutil.parser import parse
+
+    from collections import defaultdict
+
+    import matplotlib.pyplot as plt
+
+    import scipy.stats as scs
     eng = dataset
 
     teams = []
@@ -341,40 +352,38 @@ def compute_contingency_table(dataset):
         Contigency_Table.rename(index = {0:'''Win''', 1:'''Lose''', 2:'''Draw'''}, inplace = True)
 
         return Contigency_Table
-    print("Burnley Cont\n")
-    print(cont('Burnley'))
+    print(t1,"\n")
+    print(cont('t1'))
     print('\n')
 
-    print("Burnley Cont\n")
-    print(cont('Burnley'))
+    print(t2,"\n")
+    print(cont('t2'))
     print('\n')
 
-    print("Arsenal\n")
-    print(cont('Arsenal'))
+    print(t3,"\n")
+    print(cont('t3'))
     print('\n')
 
-    print("West Bromwich Albion\n")
-    print(cont('West Bromwich Albion'))
+    print(t4,"n")
+    print(cont('t4'))
     print('\n')
-    print("Manchester City\n")
-    print(cont('Manchester City'))
-    print('\n')
+    
 
-    print("Liverpool")
-    print(cont('Liverpool'))
+    print(t5,"\n")
+    print(cont('t5'))
     print('\n')
     #Calc_of_CHISQUARED 
-    #choosen_team:BURNLEY
-    print("BURNLEY CHI_SQUARED_TEST\n")
-    print(scs.chi2_contingency(cont('Burnley')))
+    #choosen_team:t1
+    print("CHI_SQUARED_TEST\n")
+    print(scs.chi2_contingency(cont('t1')))
 
 
 # ###### The table that follows id the result of RQ2 for the chosen teams of Premier League
 
-# In[28]:
 
 
-compute_contingency_table(eng)
+
+RQ2(data,'Burnley','Manchester City','Liverpool','Arsenal','West Bromwich Albion')
 
 
 # # [RQ3] Which teams have the youngest coaches?
