@@ -105,7 +105,7 @@ def cont(myteam):
 
 #Calculate contingency table of 5 teams: Burnley, Arsenal,West Bromwich Albion,Manchester City, Liverpool
 print("Burnley Cont")
-cont('Burnley')
+print(cont('Burnley'))
 
 
 
@@ -113,35 +113,35 @@ cont('Burnley')
 
 
 print("Burnley Cont")
-cont('Burnley')
+print(cont('Burnley'))
 
 
 # In[4]:
 
 
 print("Arsenal")
-cont('Arsenal')
+print(cont('Arsenal'))
 
 
 # In[5]:
 
 
 print("West Bromwich Albion")
-cont('West Bromwich Albion')
+print(cont('West Bromwich Albion'))
 
 
 # In[6]:
 
 
 print("Manchester City")
-cont('Manchester City')
+print(cont('Manchester City'))
 
 
 # In[7]:
 
 
 print("Liverpool")
-cont('Liverpool')
+print(cont('Liverpool'))
 
 
 # In[8]:
