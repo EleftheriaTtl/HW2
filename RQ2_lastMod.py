@@ -1,155 +1,160 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
 
+def compute_contingency_table(dataset):
 
-import pandas 
+    import pandas 
 
-import datetime
+    import datetime
 
-from dateutil.parser import parse
+    from dateutil.parser import parse
 
-from collections import defaultdict
+    from collections import defaultdict
 
-import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt
 
-import scipy.stats as scs
+    import scipy.stats as scs
 
-#--------------------------------------------------------------------------------
+    #--------------------------------------------------------------------------------
 
-#read my file
+    #read my file
 
 
-eng = pandas.read_json(r"C:\Users\lucy_\Downloads\matches\matches_England.json")
+    eng = dataset
 
-teams = []
+    teams = []
 
-score = []
+    score = []
 
-ranking = dict()
+    ranking = dict()
 
-for result in eng["label"]:
+    for result in eng["label"]:
 
-    teams.append(result.split(",")[0].strip())
+        teams.append(result.split(",")[0].strip())
 
-    score.append(result.split(",")[1].strip())
+        score.append(result.split(",")[1].strip())
 
-matchteam = []
+    matchteam = []
 
-matchscore = []
+    matchscore = []
 
-for i in range(len(teams)):
+    for i in range(len(teams)):
 
-    o = teams[i].split("-")
+        o = teams[i].split("-")
 
-    p = score[i].split("-")
+        p = score[i].split("-")
 
-    matchteam.append([o[0].strip(), o[1].strip()])
+        matchteam.append([o[0].strip(), o[1].strip()])
 
-    matchscore.append([p[0].strip(), p[1].strip()])
-#cont is a function that calculate the contingency table for the input team
-def cont(myteam):
+        matchscore.append([p[0].strip(), p[1].strip()])
+    #cont is a function that calculate the contingency table for the input team
+    def cont(myteam):
 
-    winhome = 0
+        winhome = 0
 
-    winaway = 0
+        winaway = 0
 
-    drawhome = 0
+        drawhome = 0
 
-    drawaway = 0
+        drawaway = 0
 
-    losehome = 0
+        losehome = 0
 
-    loseaway = 0
+        loseaway = 0
 
-    for i in range(len(eng)):
+        for i in range(len(eng)):
 
-        if myteam==matchteam[i][0]:
+            if myteam==matchteam[i][0]:
 
-            if matchscore[i][0]>matchscore[i][1]:
+                if matchscore[i][0]>matchscore[i][1]:
 
-                winhome +=1
+                    winhome +=1
 
-            elif matchscore[i][0]<matchscore[i][1]:
+                elif matchscore[i][0]<matchscore[i][1]:
 
-                losehome +=1
+                    losehome +=1
 
-            else:
+                else:
 
-                drawhome +=1
+                    drawhome +=1
 
-        elif myteam==matchteam[i][1]:
+            elif myteam==matchteam[i][1]:
 
-            if matchscore[i][0]>matchscore[i][1]:
+                if matchscore[i][0]>matchscore[i][1]:
 
-                loseaway +=1
+                    loseaway +=1
 
-            elif matchscore[i][0]<matchscore[i][1]:
+                elif matchscore[i][0]<matchscore[i][1]:
 
-                winaway +=1
+                    winaway +=1
 
-            else:
+                else:
 
-                drawaway +=1
+                    drawaway +=1
 
-    lst = [[winhome,winaway], [losehome, loseaway], [drawhome, drawaway]]
+        lst = [[winhome,winaway], [losehome, loseaway], [drawhome, drawaway]]
 
-    Contigency_Table = pd.DataFrame(lst)
+        Contigency_Table = pandas.DataFrame(lst)
 
-    Contigency_Table.columns = ["Home", "Away"]
+        Contigency_Table.columns = ["Home", "Away"]
 
-    Contigency_Table.rename(index = {0:'''Win''', 1:'''Lose''', 2:'''Draw'''}, inplace = True)
+        Contigency_Table.rename(index = {0:'''Win''', 1:'''Lose''', 2:'''Draw'''}, inplace = True)
 
-    return Contigency_Table
+        return Contigency_Table
 
-#Calculate contingency table of 5 teams: Burnley, Arsenal,West Bromwich Albion,Manchester City, Liverpool
-print("Burnley Cont")
-print(cont('Burnley'))
+    #Calculate contingency table of 5 teams: Burnley, Arsenal,West Bromwich Albion,Manchester City, Liverpool
+    print("Burnley Cont\n")
+    print(cont('Burnley'))
+    print('\n')
 
 
 
 
 
 
-print("Burnley Cont")
-print(cont('Burnley'))
+    print("Burnley Cont\n")
+    print(cont('Burnley'))
+    print('\n')
 
 
-# In[4]:
+  
 
 
-print("Arsenal")
-print(cont('Arsenal'))
+    print("Arsenal\n")
+    print(cont('Arsenal'))
+    print('\n')
 
 
-# In[5]:
+   
 
 
-print("West Bromwich Albion")
-print(cont('West Bromwich Albion'))
+    print("West Bromwich Albion\n")
+    print(cont('West Bromwich Albion'))
+    print('\n')
 
+   
 
-# In[6]:
 
+    print("Manchester City\n")
+    print(cont('Manchester City'))
+    print('\n')
 
-print("Manchester City")
-print(cont('Manchester City'))
+ 
 
 
-# In[7]:
+    print("Liverpool")
+    print(cont('Liverpool'))
+    print('\n')
 
 
-print("Liverpool")
-print(cont('Liverpool'))
 
-
-# In[8]:
 
 
 #Calc_of_CHISQUARED 
 #choosen_team:BURNLEY
-scs.chi2_contingency(cont('Burnley'))
+    print("BURNLEY CHI_SQUARED_TEST\n")
+    print(scs.chi2_contingency(cont('Burnley')))
 
 ##CHI_SQUARED_RESULTS: The null hypothesis isn't rejected because the p-value is high.  
 
