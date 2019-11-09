@@ -386,6 +386,24 @@ def RQ2(dataset,t1,t2,t3,t4,t5):
 RQ2(data,'Burnley','Manchester City','Liverpool','Arsenal','West Bromwich Albion')
 
 
+
+# The RQ2 exercise for Ligue 1
+# f = pd.read_json("matches_France.json")
+# RQ1(f,'Olympique Lione', 'Monaco', 'Nizza','Metz','Paris Saint Germain')
+
+# The RQ2 exercise for Bundesliga
+# g = pd.read_json("matches_Germany.json")
+# RQ1(g,'Borussia Mönchengladbach', 'Schalke 04','Eintracht Francoforte','Werder Brema','Bayer Leverkusen')
+
+# The RQ2 exercise for Serie A
+# it = pd.read_json("matches_Italy.json")
+# RQ1(it,'Roma','Lazio','Fiorentina','Napoli','Inter')
+
+# The RQ2 exercise for LaLiga
+# sp = pd.read_json("matches_Spain.json")
+# RQ1(sp,'Barcelona','Real Madrid','Atlético Madrid','Real Saragozza','Celta Vigo')
+
+
 # # [RQ3] Which teams have the youngest coaches?
 
 # In[17]:
